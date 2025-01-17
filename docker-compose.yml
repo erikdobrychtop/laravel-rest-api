@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_brewcontrol
+    ports:
+      - "9000:80"  # Altere a porta externa para 8080
+    volumes:
+      - .:/var/www/html
+    networks:
+      - brewcontrol_network
+    depends_on:
+      - postgres
+
+  # Serviço PostgreSQL
+  postgres:
+    image: postgres:13
+    container_name: postgres_brewcontrol
+    environment:
+      POSTGRES_DB: brewcontrol
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - brewcontrol_network
+
+networks:
+  brewcontrol_network:
+
+volumes:
+  pgdata:
