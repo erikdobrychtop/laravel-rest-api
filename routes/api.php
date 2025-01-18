@@ -13,7 +13,7 @@ Route::middleware('auth:api')->post('/logout', [AuthController::class, 'logout']
 Route::middleware('auth:api')->get('/me', [AuthController::class, 'me']);          // Dados do usuário autenticado
 
 // Grupo de rotas protegidas por autenticação JWT
-Route::middleware('auth:api')->group(function () {
+//Route::middleware('auth:api')->group(function () {
     
     // Rotas de Cervejarias
     Route::prefix('breweries')->group(function () {
@@ -41,4 +41,4 @@ Route::middleware('auth:api')->group(function () {
         Route::put('/{id}', [ColdRoomTemperatureController::class, 'update']); // Atualizar uma temperatura
         Route::delete('/{id}', [ColdRoomTemperatureController::class, 'destroy']); // Excluir uma temperatura
     });
-});
+//});
