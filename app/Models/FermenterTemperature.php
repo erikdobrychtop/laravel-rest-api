@@ -12,8 +12,7 @@ class FermenterTemperature extends Model
     protected $fillable = [
         'fermenter_id',
         'recorded_at',
-        'min_temperature',
-        'max_temperature',
+        'temperature'
     ];
 
     public function fermenter()

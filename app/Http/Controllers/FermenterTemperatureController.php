@@ -28,8 +28,7 @@ class FermenterTemperatureController extends Controller
     {
         $data = $request->validate([
             'fermenter_id' => 'required|exists:fermenters,id',
-            'min_temperature' => 'required|numeric',
-            'max_temperature' => 'required|numeric',
+            'temperature' => 'required|numeric',
         ]);
 
         // Define o horário atual automaticamente
@@ -41,8 +40,7 @@ class FermenterTemperatureController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'min_temperature' => 'numeric',
-            'max_temperature' => 'numeric',
+            'temperature' => 'numeric',
         ]);
 
         return response()->json($this->fermenterTemperatureService->update($id, $data));

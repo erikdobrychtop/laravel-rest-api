@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('fermenter_id')->constrained('fermenters')->onDelete('cascade'); // Relationship with fermenters
             $table->dateTime('recorded_at'); // Date and time of the measurement
-            $table->decimal('min_temperature', 5, 2); // Minimum recorded temperature
-            $table->decimal('max_temperature', 5, 2); // Maximum recorded temperature
+            $table->decimal('temperature', 5, 2); // Minimum recorded temperature
             $table->timestamps(); // Includes created_at and updated_at
         });
     }
