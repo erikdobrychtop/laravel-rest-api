@@ -18,6 +18,8 @@ class ColdRoomTemperatureRepository
 
     public function create(array $data)
     {
+        $data['recorded_at'] = now();
+
         return ColdRoomTemperature::create($data);
     }
 

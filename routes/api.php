@@ -6,6 +6,8 @@ use App\Http\Controllers\BreweryController;
 use App\Http\Controllers\ColdRoomController;
 use App\Http\Controllers\ColdRoomTemperatureController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FermenterController;
+use App\Http\Controllers\FermenterTemperatureController;
 
 // Rotas de Autenticação (públicas e protegidas)
 Route::post('/login', [AuthController::class, 'login']);                  // Login
@@ -41,4 +43,23 @@ Route::middleware('auth:api')->get('/me', [AuthController::class, 'me']);       
         Route::put('/{id}', [ColdRoomTemperatureController::class, 'update']); // Atualizar uma temperatura
         Route::delete('/{id}', [ColdRoomTemperatureController::class, 'destroy']); // Excluir uma temperatura
     });
+
+    // Rotas de Fermentadores
+    Route::prefix('fermenters')->group(function () {
+        Route::get('/', [FermenterController::class, 'index']);      // Listar todos os fermentadores
+        Route::get('/{id}', [FermenterController::class, 'show']);   // Exibir um fermentador específico
+        Route::post('/', [FermenterController::class, 'store']);     // Cadastrar um fermentador
+        Route::put('/{id}', [FermenterController::class, 'update']); // Atualizar um fermentador
+        Route::delete('/{id}', [FermenterController::class, 'destroy']); // Excluir um fermentador
+    });
+
+    // Rotas de Temperaturas dos Fermentadores
+    Route::prefix('fermenter-temperatures')->group(function () {
+        Route::get('/', [FermenterTemperatureController::class, 'index']);      // Listar todas as temperaturas
+        Route::get('/{id}', [FermenterTemperatureController::class, 'show']);   // Exibir uma temperatura específica
+        Route::post('/', [FermenterTemperatureController::class, 'store']);     // Cadastrar uma temperatura
+        Route::put('/{id}', [FermenterTemperatureController::class, 'update']); // Atualizar uma temperatura
+        Route::delete('/{id}', [FermenterTemperatureController::class, 'destroy']); // Excluir uma temperatura
+    });
+
 //});
