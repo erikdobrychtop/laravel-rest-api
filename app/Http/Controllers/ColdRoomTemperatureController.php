@@ -28,8 +28,7 @@ class ColdRoomTemperatureController extends Controller
     {
         $data = $request->validate([
             'cold_room_id' => 'required|exists:cold_rooms,id',
-            'min_temperature' => 'required|numeric',
-            'max_temperature' => 'required|numeric',
+            'temperature' => 'required|numeric',
         ]);
 
         // Adiciona o horário atual automaticamente
@@ -41,8 +40,7 @@ class ColdRoomTemperatureController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'min_temperature' => 'numeric',
-            'max_temperature' => 'numeric',
+            'temperature' => 'numeric',
         ]);
 
         return response()->json($this->coldRoomTemperatureService->update($id, $data));
