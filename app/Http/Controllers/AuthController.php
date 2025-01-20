@@ -13,25 +13,33 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        // Validação dos dados do formulário
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        try {
+            // Validação dos dados do formulário
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8|confirmed',
+            ]);
 
-        // Criação do usuário
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password), // Criptografando a senha
-        ]);
+            // Criação do usuário
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password), // Criptografando a senha
+            ]);
 
-        // Retorna sucesso ou redireciona para uma página
-        return response()->json([
-            'message' => 'Usuário cadastrado com sucesso!',
-            'user' => $user,
-        ], 201);
+            // Retorna sucesso
+            return response()->json([
+                'message' => 'Usuário cadastrado com sucesso!',
+                'user' => $user,
+            ], 201);
+        } catch (\Exception $e) {
+            // Captura o erro e retorna uma mensagem
+            return response()->json([
+                'message' => 'Erro ao cadastrar usuário.',
+                'error' => $e->getMessage(), // Detalhes do erro (para debug, remova em produção)
+            ], 500);
+        }
     }
 
     public function login(Request $request)
