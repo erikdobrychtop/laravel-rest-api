@@ -12,8 +12,7 @@ class ColdRoomTemperature extends Model
     protected $fillable = [
         'cold_room_id',
         'recorded_at',
-        'min_temperature',
-        'max_temperature',
+        'temperature',
     ];
 
     // Relacionamento com ColdRoom
