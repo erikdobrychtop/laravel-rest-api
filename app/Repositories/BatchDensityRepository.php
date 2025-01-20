@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Batch;
 use App\Models\BatchDensity;
+use Illuminate\Support\Facades\Log;
 
 class BatchDensityRepository
 {
