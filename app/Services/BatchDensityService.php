@@ -26,6 +26,11 @@ class BatchDensityService
         return $this->batchDensityRepository->create($data);
     }
 
+    public function update(Batch $batchId, $id, array $data)
+    {
+        return $this->batchDensityRepository->update($batchId, $id, $data);
+    }
+
     public function delete(Batch $batchId, $id)
     {
         try {
