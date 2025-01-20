@@ -25,7 +25,7 @@ class BatchDensityRepository
             $density = BatchDensity::where('batch_id', $batchId->id)->where('id', $id)->first();
 
             if (!$density) {
-                abort(404, 'Density record not found or does not belong to the specified batch');
+                throw new \Exception('Density record not found or does not belong to the specified batch', 404);
             }
 
             // Deleta o registro de densidade

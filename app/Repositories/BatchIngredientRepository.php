@@ -34,7 +34,7 @@ class BatchIngredientRepository
             $ingredient = BatchIngredient::where('batch_id', $batchId->id)->where('id', $id)->first();
 
             if (!$ingredient) {
-                abort(404, 'Ingredient not found or does not belong to the specified batch');
+                throw new \Exception('Ingredient not found or does not belong to the specified batch', 404);
             }
 
             // Deleta o ingrediente
