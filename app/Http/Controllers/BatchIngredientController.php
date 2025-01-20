@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batch;
 use App\Services\BatchIngredientService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -50,10 +51,10 @@ class BatchIngredientController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Batch $batchId, $id)
     {
         try {
-            $this->batchIngredientService->delete($id);
+            $this->batchIngredientService->delete($batchId, $id);
             return response()->json(['message' => 'Ingredient deleted successfully']);
         } catch (\Exception $e) {
             Log::error('Error deleting ingredient: ' . $e->getMessage());

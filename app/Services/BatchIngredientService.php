@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Batch;
 use App\Repositories\BatchIngredientRepository;
 
 class BatchIngredientService
@@ -28,8 +29,8 @@ class BatchIngredientService
         return $this->batchIngredientRepository->update($id, $data);
     }
 
-    public function delete($id)
+    public function delete(Batch $batchId, $id)
     {
-        return $this->batchIngredientRepository->delete($id);
+        return $this->batchIngredientRepository->delete($batchId, $id);
     }
 }

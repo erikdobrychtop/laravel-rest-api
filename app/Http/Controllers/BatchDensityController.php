@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batch;
 use App\Services\BatchDensityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -38,10 +39,10 @@ class BatchDensityController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Batch $batchId, $id)
     {
         try {
-            $this->batchDensityService->delete($id);
+            $this->batchDensityService->delete($batchId, $id);
             return response()->json(['message' => 'Density record deleted successfully']);
         } catch (\Exception $e) {
             Log::error('Error deleting density: ' . $e->getMessage());

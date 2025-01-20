@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Batch;
 use App\Repositories\BatchDensityRepository;
 
 class BatchDensityService
@@ -23,8 +24,8 @@ class BatchDensityService
         return $this->batchDensityRepository->create($data);
     }
 
-    public function delete($id)
+    public function delete(Batch $batchId, $id)
     {
-        return $this->batchDensityRepository->delete($id);
+        return $this->batchDensityRepository->delete($batchId, $id);
     }
 }
