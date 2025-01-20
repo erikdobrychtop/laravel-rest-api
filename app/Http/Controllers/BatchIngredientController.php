@@ -39,11 +39,11 @@ class BatchIngredientController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Batch $batchId, Request $request, $id)
     {
         try {
             $data = $request->all();
-            $ingredient = $this->batchIngredientService->update($id, $data);
+            $ingredient = $this->batchIngredientService->update($batchId, $id, $data);
             return response()->json($ingredient);
         } catch (\Exception $e) {
             Log::error('Error updating ingredient: ' . $e->getMessage());

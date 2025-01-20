@@ -26,9 +26,9 @@ class BatchIngredientService
         return $this->batchIngredientRepository->create($data);
     }
 
-    public function update($id, array $data)
+    public function update(Batch $batchId, $id, array $data)
     {
-        return $this->batchIngredientRepository->update($id, $data);
+        return $this->batchIngredientRepository->update($batchId, $id, $data);
     }
 
     public function delete(Batch $batchId, $id)

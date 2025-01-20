@@ -18,13 +18,32 @@ class BatchIngredientRepository
         return BatchIngredient::create($data);
     }
 
-    public function update($id, array $data)
+    public function update(Batch $batchId, $id, array $data)
     {
-        $ingredient = BatchIngredient::find($id);
-        if ($ingredient) {
+        try {
+            // Busca o ingrediente verificando o batch_id e o id
+            $ingredient = BatchIngredient::where('batch_id', $batchId->id)->where('id', $id)->first();
+
+            if (!$ingredient) {
+                // Lança uma exceção se o ingrediente não for encontrado ou não pertencer ao lote
+                throw new \Exception('Ingredient not found or does not belong to the specified batch', 404);
+            }
+
+            // Atualiza o ingrediente com os dados fornecidos
             $ingredient->update($data);
+
+            return $ingredient;
+        } catch (\Exception $e) {
+            // Registra o erro no log para análise
+            Log::error('Error updating ingredient: ', [
+                'batch_id' => $batchId->id,
+                'ingredient_id' => $id,
+                'error_message' => $e->getMessage(),
+            ]);
+
+            // Propaga a exceção para ser tratada em um nível superior
+            throw $e;
         }
-        return $ingredient;
     }
 
     public function delete(Batch $batchId, $id)
