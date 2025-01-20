@@ -13,6 +13,7 @@ use App\Http\Controllers\FermenterTemperatureController;
 Route::post('/login', [AuthController::class, 'login']);                  // Login
 Route::middleware('auth:api')->post('/logout', [AuthController::class, 'logout']); // Logout
 Route::middleware('auth:api')->get('/me', [AuthController::class, 'me']);          // Dados do usuário autenticado
+Route::post('/register', [AuthController::class, 'register']);
 
 // Grupo de rotas protegidas por autenticação JWT
 //Route::middleware('auth:api')->group(function () {
