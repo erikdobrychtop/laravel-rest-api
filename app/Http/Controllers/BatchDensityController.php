@@ -39,6 +39,18 @@ class BatchDensityController extends Controller
         }
     }
 
+    public function update(Batch $batchId, Request $request, $id)
+    {
+        try {
+            $data = $request->all();
+            $ingredient = $this->batchDensityService->update($batchId, $id, $data);
+            return response()->json($ingredient);
+        } catch (\Exception $e) {
+            Log::error('Error updating density: ' . $e->getMessage());
+            return response()->json(['message' => 'Failed to update density'], 500);
+        }
+    }
+
     public function destroy(Batch $batchId, $id)
     {
         try {

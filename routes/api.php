@@ -85,6 +85,7 @@ Route::post('/register', [AuthController::class, 'register']);
         Route::prefix('/{batchId}/densities')->group(function () {
             Route::get('/', [BatchDensityController::class, 'index']);
             Route::post('/', [BatchDensityController::class, 'store']);
+            Route::put('/{id}', [BatchDensityController::class, 'update']);
             Route::delete('/{id}', [BatchDensityController::class, 'destroy']);
         });
     });
