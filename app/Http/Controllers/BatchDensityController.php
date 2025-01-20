@@ -43,10 +43,24 @@ class BatchDensityController extends Controller
     {
         try {
             $this->batchDensityService->delete($batchId, $id);
+
             return response()->json(['message' => 'Density record deleted successfully']);
         } catch (\Exception $e) {
-            Log::error('Error deleting density: ' . $e->getMessage());
-            return response()->json(['message' => 'Failed to delete density'], 500);
+            // Loga o erro com detalhes adicionais
+            Log::error('Error deleting density: ', [
+                'batch_id' => $batchId->id,
+                'density_id' => $id,
+                'error_message' => $e->getMessage()
+            ]);
+
+            // Retorna uma mensagem de erro personalizada, se possível
+            $statusCode = $e->getCode() === 404 ? 404 : 500;
+            $errorMessage = $e->getCode() === 404
+                ? $e->getMessage()
+                : 'An unexpected error occurred while trying to delete the density record.';
+
+            return response()->json(['message' => $errorMessage], $statusCode);
         }
     }
+
 }
