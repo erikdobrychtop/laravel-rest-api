@@ -8,12 +8,12 @@ class BatchRepository
 {
     public function getAll()
     {
-        return Batch::all();
+        return Batch::with(['ingredients', 'densities'])->get();
     }
 
     public function findById($id)
     {
-        return Batch::find($id);
+        return Batch::with(['ingredients', 'densities'])->findOrFail($id);
     }
 
     public function create(array $data)
