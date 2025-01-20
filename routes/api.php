@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\BatchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BreweryController;
 use App\Http\Controllers\ColdRoomController;
 use App\Http\Controllers\ColdRoomTemperatureController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BatchDensityController;
+use App\Http\Controllers\BatchIngredientController;
 use App\Http\Controllers\FermenterController;
 use App\Http\Controllers\FermenterTemperatureController;
 
@@ -61,6 +64,29 @@ Route::post('/register', [AuthController::class, 'register']);
         Route::post('/', [FermenterTemperatureController::class, 'store']);     // Cadastrar uma temperatura
         Route::put('/{id}', [FermenterTemperatureController::class, 'update']); // Atualizar uma temperatura
         Route::delete('/{id}', [FermenterTemperatureController::class, 'destroy']); // Excluir uma temperatura
+    });
+
+    Route::prefix('batches')->group(function () {
+        Route::get('/', [BatchController::class, 'index']);
+        Route::get('/{id}', [BatchController::class, 'show']);
+        Route::post('/', [BatchController::class, 'store']);
+        Route::put('/{id}', [BatchController::class, 'update']);
+        Route::delete('/{id}', [BatchController::class, 'destroy']);
+    
+        // Routes for Batch Ingredients
+        Route::prefix('/{batchId}/ingredients')->group(function () {
+            Route::get('/', [BatchIngredientController::class, 'index']);
+            Route::post('/', [BatchIngredientController::class, 'store']);
+            Route::put('/{id}', [BatchIngredientController::class, 'update']);
+            Route::delete('/{id}', [BatchIngredientController::class, 'destroy']);
+        });
+    
+        // Routes for Batch Densities
+        Route::prefix('/{batchId}/densities')->group(function () {
+            Route::get('/', [BatchDensityController::class, 'index']);
+            Route::post('/', [BatchDensityController::class, 'store']);
+            Route::delete('/{id}', [BatchDensityController::class, 'destroy']);
+        });
     });
 
 //});
