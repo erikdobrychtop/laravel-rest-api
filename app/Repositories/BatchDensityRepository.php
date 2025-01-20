@@ -18,6 +18,34 @@ class BatchDensityRepository
         return BatchDensity::create($data);
     }
 
+    public function update(Batch $batchId, $id, array $data)
+    {
+        try {
+            // Busca a densidade verificando o batch_id e o id
+            $density = BatchDensity::where('batch_id', $batchId->id)->where('id', $id)->first();
+
+            if (!$density) {
+                // Lança uma exceção se a densidade não for encontrada ou não pertencer ao lote
+                throw new \Exception('Density record not found or does not belong to the specified batch', 404);
+            }
+
+            // Atualiza a densidade com os dados fornecidos
+            $density->update($data);
+
+            return $density;
+        } catch (\Exception $e) {
+            // Registra o erro no log para análise
+            Log::error('Error updating density record: ', [
+                'batch_id' => $batchId->id,
+                'density_id' => $id,
+                'error_message' => $e->getMessage(),
+            ]);
+
+            // Propaga a exceção para ser tratada em um nível superior
+            throw $e;
+        }
+    }
+
     public function delete(Batch $batchId, $id)
     {
         try {
