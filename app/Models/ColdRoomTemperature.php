@@ -13,6 +13,8 @@ class ColdRoomTemperature extends Model
         'cold_room_id',
         'recorded_at',
         'temperature',
+        'min_temperature',
+        'max_temperature'        
     ];
 
     // Relacionamento com ColdRoom
