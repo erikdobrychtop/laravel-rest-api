@@ -33,7 +33,8 @@ class BatchIngredientRepository
             // Verifica se o ingrediente pertence ao lote especificado
             $ingredient = BatchIngredient::where('batch_id', $batchId->id)->where('id', $id)->first();
 
-            if (!$ingredient) {
+            // Verifica se o registro não existe ou não pertence ao lote especificado
+            if (is_null($ingredient) || $ingredient->batch_id !== $batchId->id) {
                 throw new \Exception('Ingredient not found or does not belong to the specified batch', 404);
             }
 

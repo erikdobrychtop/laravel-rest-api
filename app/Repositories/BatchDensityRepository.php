@@ -24,7 +24,8 @@ class BatchDensityRepository
             // Verifica se a densidade pertence ao lote especificado
             $density = BatchDensity::where('batch_id', $batchId->id)->where('id', $id)->first();
 
-            if (!$density) {
+            // Verifica se o registro não existe ou não pertence ao lote especificado
+            if (is_null($density) || $density->batch_id !== $batchId->id) {
                 throw new \Exception('Density record not found or does not belong to the specified batch', 404);
             }
 
