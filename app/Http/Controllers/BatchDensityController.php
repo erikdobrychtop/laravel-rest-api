@@ -27,11 +27,11 @@ class BatchDensityController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(Batch $batchId, Request $request)
     {
         try {
             $data = $request->all();
-            $density = $this->batchDensityService->create($data);
+            $density = $this->batchDensityService->create($batchId, $data);
             return response()->json($density, 201);
         } catch (\Exception $e) {
             Log::error('Error storing density: ' . $e->getMessage());

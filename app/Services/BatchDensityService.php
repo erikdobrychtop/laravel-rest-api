@@ -21,9 +21,21 @@ class BatchDensityService
         return $this->batchDensityRepository->getByBatchId($batchId);
     }
 
-    public function create(array $data)
+    public function create(Batch $batchId, array $data)
     {
-        return $this->batchDensityRepository->create($data);
+        try {
+            // Tenta criar o registro de densidade
+            return $this->batchDensityRepository->create($batchId, $data);
+        } catch (\Exception $e) {
+            // Registra o erro no log para análise
+            Log::error('Error creating density record: ', [
+                'data' => $data,
+                'error_message' => $e->getMessage(),
+            ]);
+
+            // Lança a exceção para tratamento em níveis superiores
+            throw new \Exception('Failed to create density record. Please try again.', 500);
+        }
     }
 
     public function update(Batch $batchId, $id, array $data)

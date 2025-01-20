@@ -21,9 +21,21 @@ class BatchIngredientService
         return $this->batchIngredientRepository->getByBatchId($batchId);
     }
 
-    public function create(array $data)
+    public function create(Batch $batchId, array $data)
     {
-        return $this->batchIngredientRepository->create($data);
+        try {
+            // Tenta criar o registro de ingrediente
+            return $this->batchIngredientRepository->create($batchId, $data);
+        } catch (\Exception $e) {
+            // Registra o erro no log para análise
+            Log::error('Error creating ingredient record: ', [
+                'data' => $data,
+                'error_message' => $e->getMessage(),
+            ]);
+
+            // Lança uma exceção personalizada para ser tratada em níveis superiores
+            throw new \Exception('Failed to create ingredient record. Please try again.', 500);
+        }
     }
 
     public function update(Batch $batchId, $id, array $data)

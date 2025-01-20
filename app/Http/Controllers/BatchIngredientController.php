@@ -27,11 +27,11 @@ class BatchIngredientController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(Batch $batchId, Request $request)
     {
         try {
             $data = $request->all();
-            $ingredient = $this->batchIngredientService->create($data);
+            $ingredient = $this->batchIngredientService->create($batchId, $data);
             return response()->json($ingredient, 201);
         } catch (\Exception $e) {
             Log::error('Error storing ingredient: ' . $e->getMessage());

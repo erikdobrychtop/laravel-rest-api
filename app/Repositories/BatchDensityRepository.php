@@ -12,10 +12,25 @@ class BatchDensityRepository
     {
         return BatchDensity::where('batch_id', $batchId)->get();
     }
-
-    public function create(array $data)
+    public function create(Batch $batchId, array $data)
     {
-        return BatchDensity::create($data);
+        try {
+            // Adiciona o batch_id aos dados
+            $data['batch_id'] = $batchId->id;
+
+            // Cria o registro da densidade
+            return BatchDensity::create($data);
+        } catch (\Exception $e) {
+            // Registra o erro no log para análise
+            Log::error('Error creating density record: ', [
+                'batch_id' => $batchId->id,
+                'data' => $data,
+                'error_message' => $e->getMessage(),
+            ]);
+
+            // Lança uma exceção personalizada
+            throw new \Exception('Failed to create density record. Please try again.', 500);
+        }
     }
 
     public function update(Batch $batchId, $id, array $data)
