@@ -16,7 +16,10 @@ class BatchDensityRepository
     {
         try {
             // Adiciona o batch_id aos dados
-            $data['batch_id'] = $batchId->id;
+            $data['batch_id'] = $batchId->id;            
+            $density = str_replace(',', '.', $data['date']);
+            $data['date'] = $density;
+
 
             // Cria o registro da densidade
             return BatchDensity::create($data);
