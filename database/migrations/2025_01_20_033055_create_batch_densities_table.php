@@ -11,7 +11,7 @@ class CreateBatchDensitiesTable extends Migration
         Schema::create('batch_densities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('batch_id')->constrained('batches')->onDelete('cascade');
-            $table->decimal('density', 5, 3); // Example: 1.050
+            $table->decimal('density', 10, 2)->nullable(); // Ingredient cost
             $table->date('date');
             $table->timestamps();
         });
