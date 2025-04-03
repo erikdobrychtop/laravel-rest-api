@@ -1,17 +1,9 @@
 <?php
 
-use App\Http\Controllers\BatchController;
 use App\Http\Controllers\TravelOrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BreweryController;
-use App\Http\Controllers\ColdRoomController;
-use App\Http\Controllers\ColdRoomTemperatureController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BatchDensityController;
-use App\Http\Controllers\BatchIngredientController;
-use App\Http\Controllers\FermenterController;
-use App\Http\Controllers\FermenterTemperatureController;
 
 // Rotas de Autenticação (públicas e protegidas)
 Route::post('/login', [AuthController::class, 'login']);                  // Login
