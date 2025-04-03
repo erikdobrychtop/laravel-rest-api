@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return 'Modelo do Job - Desenvolvido por Erik Ieger Dobrychtop';
+    return 'Laravel API Rest - Desenvolvido por Erik Ieger Dobrychtop';
 });

@@ -1,38 +1,37 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: laravel_modelo
+    container_name: laravel_travel_service
     ports:
-      - "8001:80"  # Altere a porta externa para 8080
+      - "8001:80"  # Porta externa 8001 mapeada para 80 interna
     volumes:
       - .:/var/www/html
       - ./apache-config/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
     networks:
-      - modelo_network
+      - travel_service_network
     depends_on:
-      - postgres
+      - mysql
 
-  # Serviço PostgreSQL
-  postgres:
-    image: postgres:13
-    container_name: postgres_modelo
+  # Serviço MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_travel_service
     environment:
-      POSTGRES_DB: modelo
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
+      MYSQL_DATABASE: travel_service_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
     ports:
-      - "5434:5432"
+      - "3306:3306"  # Porta padrão do MySQL
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mysqldata:/var/lib/mysql
     networks:
-      - modelo_network
+      - travel_service_network
 
 networks:
-  modelo_network:
+  travel_service_network:
 
 volumes:
-  pgdata:
+  mysqldata:
