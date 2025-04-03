@@ -23,8 +23,8 @@ Microsserviço desenvolvido em Laravel para gerenciar pedidos de viagem corporat
 Siga os passos abaixo para configurar o projeto localmente:
 
 1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/seu-usuario/travel-order-service.git
+   ```bash   
+   git clone https://github.com/erikdobrychtop/laravel-rest-api.git travel-order-service
    cd travel-order-service
    
 2. **Instale as dependências:**
@@ -63,4 +63,34 @@ Siga os passos abaixo para configurar o projeto localmente:
 
 - Notas: Use um token JWT no header Authorization: Bearer {token} para rotas autenticadas.
 
-Para dúvidas ou sugestões, abra uma issue no repositório ou envie um e-mail para erikdobrychtop@gmail.com.
+1. **Criar usuário - Curl**
+   ```bash
+      curl --request POST \
+      --url http://localhost:8001/api/register \
+      --header 'Content-Type: application/json' \
+      --data '{
+      "name": "Erik",
+      "email": "erikdobryxchtop@gmail.com",
+      "password": "qwert12345",
+      "password_confirmation": "qwert12345",
+      "phone_number": "99999-9999",
+      "birth_date": "1994-06-15"
+      }'
+   
+   BODY
+
+   {
+    "name": "Erik",
+    "email": "erikdobryxchtop@gmail.com",
+    "password": "qwert12345",
+    "password_confirmation": "qwert12345",
+    "phone_number": "99999-9999",
+    "birth_date": "1994-06-15"
+   }
+
+
+
+      
+## Dúvidas ou Sugestões
+
+- Para dúvidas ou sugestões, abra uma issue no repositório ou envie um e-mail para erikdobrychtop@gmail.com.
