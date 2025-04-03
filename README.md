@@ -26,5 +26,41 @@ Siga os passos abaixo para configurar o projeto localmente:
    ```bash
    git clone https://github.com/seu-usuario/travel-order-service.git
    cd travel-order-service
+   
+2. **Instale as dependências:**
+   ```bash
+   docker-compose exec app composer install
 
-   Para dúvidas ou sugestões, abra uma issue no repositório ou envie um e-mail para erikdobrychtop@gmail.com.
+3. **Configure o arquivo .env (copie .env.example e ajuste as variáveis).**
+4. **Execute as migrações:**
+   ```bash
+   docker-compose exec app php artisan migrate
+
+## Executando o Serviço
+   
+1. **Comando:**
+   ```bash
+   docker-compose up --build
+
+## Configuração do Ambiente
+- DB_*: Configurações do MySQL.
+- JWT_SECRET: Gerado com php artisan jwt:secret.
+- MAIL_*: Configurações de e-mail (ex.: Mailtrap).
+
+## Executando Testes
+
+1. **Comando:**
+   ```bash
+   docker-compose exec app php artisan test
+
+## Endpoints
+- POST /api/login: Autenticação (email, password).
+- POST /api/travel-orders: Criar pedido.
+- PUT /api/travel-orders/{id}/status: Atualizar status.
+- GET /api/travel-orders/{id}: Consultar pedido.
+- GET /api/travel-orders: Listar pedidos (filtros: status, start_date, end_date, destination).
+- DELETE /api/travel-orders/{id}: Cancelar pedido.
+
+- Notas: Use um token JWT no header Authorization: Bearer {token} para rotas autenticadas.
+
+Para dúvidas ou sugestões, abra uma issue no repositório ou envie um e-mail para erikdobrychtop@gmail.com.
