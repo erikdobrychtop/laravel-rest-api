@@ -88,7 +88,77 @@ Siga os passos abaixo para configurar o projeto localmente:
     "birth_date": "1994-06-15"
    }
 
+2. **Login - Curl**
+   ```bash
+   curl --request POST \
+   --url http://localhost:8001/api/login \
+   --header 'Content-Type: application/json' \
+   --data '{
+      "email": "erikdobryxchtop@gmail.com", 
+      "password": "qwert12345"
+      }'
 
+   BODY
+
+   {
+	"email": "erikdobryxchtop@gmail.com", 
+	"password": "qwert12345"
+   }
+
+3. **Listar Pedidos - Curl**
+   ```bash
+   curl --request GET \
+   --url 'http://localhost:8001/api/travel-orders?status=requested&start_date=2025-01-01&end_date=2025-05-31&destination=New%20York' \
+   --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzQzNzA5MjMzLCJleHAiOjE3NDM3MTI4MzMsIm5iZiI6MTc0MzcwOTIzMywianRpIjoidW1HRktNRmlSTlFIOHZKSCIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.rDYJawocTLEEKnPZMYxnPcUfNSJd-d4pR7QyaBFeCwk'
+   
+4. **Consultar Pedido - Curl**
+   ```bash
+   curl --request GET \
+   --url http://localhost:8001/api/travel-orders/1 \
+   --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzQzNzA5NjA4LCJleHAiOjE3NDM3MTMyMDgsIm5iZiI6MTc0MzcwOTYwOCwianRpIjoiSnpVNjV6ZUJYV2tCNm5FTCIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.6DQPg2MbVHIoB6Oa5MNeO-1k7WuqQeSLhjxt92n2PPM'
+
+5. **Criar Pedido de Viagem - Curl**
+   ```bash
+   curl --request POST \
+   --url http://localhost:8001/api/travel-orders \
+   --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzQzNzA5MjMzLCJleHAiOjE3NDM3MTI4MzMsIm5iZiI6MTc0MzcwOTIzMywianRpIjoidW1HRktNRmlSTlFIOHZKSCIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.rDYJawocTLEEKnPZMYxnPcUfNSJd-d4pR7QyaBFeCwk' \
+   --header 'Content-Type: application/json' \
+   --data '{
+      "requester_name": "John Doe",
+      "destination": "New York",
+      "departure_date": "2025-05-01",
+      "return_date": "2025-05-05"
+   }'
+
+   BODY
+   
+   {
+    "requester_name": "John Doe",
+    "destination": "New York",
+    "departure_date": "2025-05-01",
+    "return_date": "2025-05-05"
+   }
+
+6. **Atualizar Status - Curl**
+   ```bash
+   curl --request PUT \
+   --url http://localhost:8001/api/travel-orders/1/status \
+   --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzQzNzA5MjMzLCJleHAiOjE3NDM3MTI4MzMsIm5iZiI6MTc0MzcwOTIzMywianRpIjoidW1HRktNRmlSTlFIOHZKSCIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.rDYJawocTLEEKnPZMYxnPcUfNSJd-d4pR7QyaBFeCwk' \
+   --header 'Content-Type: application/json' \
+   --data '{
+      "status": "approved"
+   }'
+
+   BODY
+   {
+    "status": "approved"
+   }
+
+7. **Cancelar Pedido - Curl**
+   ```bash
+   curl --request DELETE \
+   --url http://localhost:8001/api/travel-orders/1 \
+   --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzQzNzA5MjMzLCJleHAiOjE3NDM3MTI4MzMsIm5iZiI6MTc0MzcwOTIzMywianRpIjoidW1HRktNRmlSTlFIOHZKSCIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.rDYJawocTLEEKnPZMYxnPcUfNSJd-d4pR7QyaBFeCwk'
 
       
 ## Dúvidas ou Sugestões
